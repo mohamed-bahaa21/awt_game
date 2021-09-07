@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics;
 
+import parents.Tile;
 import utils.Utils;
 
 public class World {
@@ -46,6 +47,42 @@ public class World {
 	}
 	
 	public void render(Graphics g) {
-		
+		for(int y=0; y<height; y++){
+			for(int x=0; x<width; x++){
+				getTile(x, y).render(g, (int) (x * Tile.TILE_WIDTH), (int) (y * Tile.TILE_HEIGHT));
+			}
+		}
+	}
+	
+//	------------ Getters & Setters ----------------------------------------------------------------
+	
+	public Tile getTile(int x, int y) {	
+		//outside the map to be rock tile, so player can't go away
+		if(x < 0 || y < 0 || x >= Game.getWidth() || y >= Game.getHeight())
+			return Tile.grassTile;
+
+		// tiles
+		Tile t = Tile.tiles[tiles[x][y]];
+
+		// if no tiles configured fill it with dirt
+		if(t == null)
+			return Tile.grassTile;
+		return t;
+	}
+	
+	public int getWidth(){
+		return width;
+	}
+	
+	public int getHeight(){
+		return height;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

@@ -1,10 +1,24 @@
 package utils;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 public class Utils {
+	
+//	Load Image 
+	public static BufferedImage loadImage(String path) {
+		try {
+			return ImageIO.read(Utils.class.getResource(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return null;
+	}
 	
 //	Load Files As String
 	public static String loadFileAsString(String path){

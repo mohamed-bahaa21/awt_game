@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import managers.AssetsManager;
 import parents.State;
 import states.GameState;
 
@@ -10,7 +11,8 @@ public class Game implements Runnable {
 	
 	private Display display;
 	private String title;
-	private int width, height;
+	private static int width;
+	private static int height;
 	
 	private boolean running = false;
 	private Thread thread;
@@ -51,13 +53,17 @@ public class Game implements Runnable {
 //	=========================================================================
 	public void init() {
 		display = new Display(title, width, height);
+		AssetsManager.init();
 		
 		GAME_STATE = new GameState(this);
+		State.setState(GAME_STATE);
 	}
 
 //	=========================================================================
 	public void tick() {
-		
+		if(State.getState() != null) {
+			State.getState().tick();
+		}
 	}
 	
 //	=========================================================================
@@ -71,6 +77,15 @@ public class Game implements Runnable {
 		
 		g = bs.getDrawGraphics();
 		g.clearRect(0, 0, width, height);
+		
+		// start game graphics
+
+		
+		if(State.getState() != null) {
+			State.getState().render(g);	
+		}
+		
+		// end game graphics
 		
 		bs.show();
 		g.dispose();
@@ -86,6 +101,20 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+//	-------- GETTERS & SETTERS -------------------------------------------------------------
+	
+	public static int getWidth(){
+		return width;
+	}
+	
+	public static int getHeight(){
+		return height;
+	}
+
+	public Game getGame() {
+		return this;
 	}
 	
 }
