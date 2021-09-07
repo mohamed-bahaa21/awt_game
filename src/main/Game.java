@@ -3,6 +3,9 @@ package main;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import parents.State;
+import states.GameState;
+
 public class Game implements Runnable {
 	
 	private Display display;
@@ -14,6 +17,8 @@ public class Game implements Runnable {
 	
 	private BufferStrategy bs;
 	private Graphics g;
+	
+	private State GAME_STATE;
 
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -46,6 +51,8 @@ public class Game implements Runnable {
 //	=========================================================================
 	public void init() {
 		display = new Display(title, width, height);
+		
+		GAME_STATE = new GameState(this);
 	}
 
 //	=========================================================================
