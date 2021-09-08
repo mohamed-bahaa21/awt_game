@@ -3,7 +3,9 @@ package parents;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import childs.DirtTile;
 import childs.GrassTile;
+import childs.RockTile;
 import main.Game;
 
 public class Tile {
@@ -14,6 +16,8 @@ public class Tile {
 	
 	public static Tile[] tiles = new Tile[256];
 	public static Tile grassTile = new GrassTile(0);
+	public static Tile dirtTile = new DirtTile(1);
+	public static Tile rockTile = new RockTile(2);
 
 	public Tile(BufferedImage texture, int id) {
 		this.texture = texture;
